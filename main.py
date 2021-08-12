@@ -9,7 +9,7 @@ from camera import VideoCamera
 import click
 
 
-pi_camera = None
+pi_camera = -1
 
 
 @click.command()
@@ -36,9 +36,11 @@ pi_camera = None
     type=int,
     help="Frame rate.",
 )
-def init_camera(flip, height, width, framerate):
+def livefeed(flip, height, width, framerate):
     global pi_camera
     pi_camera = VideoCamera(flip=flip, resolution=(height, width), framerate=framerate)
+    print(pi_camera)
+    app.run(host='0.0.0.0', debug=False)
 
 
 # App Globals (do not edit)
@@ -64,8 +66,4 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    init_camera()
-    app.run(host='0.0.0.0', debug=False)
-    
-
-
+    livefeed()
